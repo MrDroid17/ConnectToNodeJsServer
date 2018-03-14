@@ -25,7 +25,7 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
         <EditText
-            android:id="@+id/tv_login_username"
+            android:id="@+id/et_login_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -52,7 +52,7 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
         <EditText
-            android:id="@+id/tv_login_password"
+            android:id="@+id/et_login_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
