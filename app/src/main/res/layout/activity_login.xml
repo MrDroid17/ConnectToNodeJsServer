@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.example.dell.connecttoserver.LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_login_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/label_username"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+        <EditText
+            android:id="@+id/tv_login_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/hint_enter_username"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/ll_login_username"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/label_password"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+        <EditText
+            android:id="@+id/tv_login_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/hint_enter_password"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_below="@id/ll_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="@string/btn_login"
+        />
+
+    <TextView
+        android:id="@+id/tv_if_not_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@id/btn_login"
+        android:text="@string/msg_if_not_registerd"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_below="@id/tv_if_not_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="@string/btn_register"
+        />
+
+
+</RelativeLayout>
