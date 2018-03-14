@@ -10,8 +10,6 @@ public class User {
 
     private String id;
 
-
-
     @SerializedName("name")
     private String name;
 

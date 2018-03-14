@@ -12,4 +12,9 @@
     <string name="hint_enter_email">Enter email</string>
     <string name="hint_enter_password">Enter Password</string>
     <string name="msg_if_already_registered">If Already registered? Login here!</string>
+    <string name="user_dashboard">DashBoard</string>
+    <string name="user_login">Login</string>
+    <string name="btn_logout">Logout</string>
+    <string name="btn_show_profile">Show Profile</string>
+    <string name="btn_hide_profile">Hide Profile</string>
 </resources>
