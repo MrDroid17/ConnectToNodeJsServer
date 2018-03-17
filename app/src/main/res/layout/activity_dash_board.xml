@@ -33,7 +33,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_below="@id/btn_login"
-        tools:text="User Name"
+        tools:text="Name"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_below="@id/btn_login"
-            tools:text="User username"
+            tools:text="Username"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
         <TextView
@@ -55,7 +55,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_below="@id/btn_login"
-            tools:text="User Name"
+            tools:text="Email"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
     </LinearLayout>

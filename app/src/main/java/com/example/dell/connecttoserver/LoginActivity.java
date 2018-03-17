@@ -75,9 +75,11 @@ public class LoginActivity extends AppCompatActivity {
                                 "User logged in \n success: " + response.body().getIsSuccess()
                                         + "\n id: " + response.body().getUser().getId(),
                                 Toast.LENGTH_SHORT).show();
+                        String user_token = response.body().getToken();
 
                         //go to dashboard
                         Intent gotoDashboardIntent= new Intent(LoginActivity.this, DashBoardActivity.class);
+                        gotoDashboardIntent.putExtra("token_id", user_token);
                         startActivity(gotoDashboardIntent);
                         finish();
 

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,9 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.tv_user_email)
     TextView tvEmail;
 
+    @BindView(R.id.ll_dashboard)
+    LinearLayout llDashboard;
+
     @BindView(R.id.btn_logout)
     Button btnLogout;
 
@@ -48,52 +52,52 @@ public class DashBoardActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        String user_token = getIntent().getStringExtra("token_id");
 
-     /*   //setVisibility gone of textview by default
-        tvName.setVisibility(View.GONE);
-        tvUsername.setVisibility(View.GONE);
-        tvEmail.setVisibility(View.GONE);
-
-        //set string
+       //set Activity title
         setTitle(getString(R.string.user_dashboard));
 
-    /*    //shared preference
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
-
         btnShowHideProfile.setOnClickListener(v -> {
-            String tokenFromSharedPreferences = sharedPref.getString("token",
-                    "token not found");
+            //String tokenFromSharedPreferences = sharedPref.getString("token",
+                //    "token not found");
             APIService apiService = Client.getClient().create(APIService.class);
-            Call<User> call = apiService.getProfile(tokenFromSharedPreferences);
+            Call<LoginResponse> call = apiService.getProfile(user_token);
 
-            call.enqueue(new Callback<User>() {
+            call.enqueue(new Callback<LoginResponse>() {
                 @Override
-                public void onResponse(Call<User> call, Response<User> response) {
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+
                     if(response.isSuccessful()){
-                        //set visibility visible
-                        tvName.setVisibility(View.VISIBLE);
-                        tvUsername.setVisibility(View.VISIBLE);
-                        tvEmail.setVisibility(View.VISIBLE);
+                        if(btnShowHideProfile.getText().equals(getString(R.string.btn_show_profile))){
+                            //show profile
+                            tvName.setText(response.body().getUser().getName());
+                            tvUsername.setText(response.body().getUser().getUsername());
+                            tvEmail.setText(response.body().getUser().getEmail());
+                            btnShowHideProfile.setText(R.string.btn_hide_profile);
+                            llDashboard.setVisibility(View.VISIBLE);
 
-                        tvName.setText(response.body().getName());
-                        tvUsername.setText(response.body().getUsername());
-                        tvEmail.setText(response.body().getEmail());
 
-                        btnShowHideProfile.setText(R.string.btn_hide_profile);
-
+                        }else{
+                            //hide profile
+                            tvName.setText("");
+                            tvUsername.setText("");
+                            tvEmail.setText("");
+                            btnShowHideProfile.setText(R.string.btn_show_profile);
+                            llDashboard.setVisibility(View.GONE);
+                        }
                     }
-
                 }
 
                 @Override
-                public void onFailure(Call<User> call, Throwable t) {
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+                    Toast.makeText(DashBoardActivity.this, "Error: " +t , Toast.LENGTH_SHORT).show();
 
                 }
             });
 
         });
-        */
+
 
         btnLogout.setOnClickListener(v -> {
 

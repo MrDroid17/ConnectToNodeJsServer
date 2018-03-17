@@ -22,15 +22,11 @@ public interface APIService {
     @POST("users/register")
     Call<UserApiResponse> registerUser(@Body User user);
 
-    /*@POST("users/authenticate")
-    Call<User> authenticateUser(@Field("username") String username,
-                        @Field("password") String password);*/
-
     @POST("users/authenticate")
     Call<LoginResponse> authenticateUser(@Body Login login);
 
     @GET("users/profile")
-    Call<User> getProfile(@Header("Authorisation") String authToken);
+    Call<LoginResponse> getProfile(@Header("Authorization") String authToken);
 
 
 }
