@@ -1,5 +1,6 @@
 package com.example.dell.connecttoserver;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -43,7 +44,11 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.btn_show_hide_profile)
     Button btnShowHideProfile;
 
-    SharedPreferences sharedPref;
+    private Context mContext;
+
+    private SharedPreferences mSharedPref;
+
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +63,15 @@ public class DashBoardActivity extends AppCompatActivity {
         setTitle(getString(R.string.user_dashboard));
 
         btnShowHideProfile.setOnClickListener(v -> {
-            //String tokenFromSharedPreferences = sharedPref.getString("token",
-                //    "token not found");
+
             APIService apiService = Client.getClient().create(APIService.class);
             Call<LoginResponse> call = apiService.getProfile(user_token);
 
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-
                     if(response.isSuccessful()){
+
                         if(btnShowHideProfile.getText().equals(getString(R.string.btn_show_profile))){
                             //show profile
                             tvName.setText(response.body().getUser().getName());
@@ -75,8 +79,6 @@ public class DashBoardActivity extends AppCompatActivity {
                             tvEmail.setText(response.body().getUser().getEmail());
                             btnShowHideProfile.setText(R.string.btn_hide_profile);
                             llDashboard.setVisibility(View.VISIBLE);
-
-
                         }else{
                             //hide profile
                             tvName.setText("");
@@ -90,9 +92,8 @@ public class DashBoardActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
-
-                    Toast.makeText(DashBoardActivity.this, "Error: " +t , Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(DashBoardActivity.this, "Error: " +t ,
+                            Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -101,12 +102,11 @@ public class DashBoardActivity extends AppCompatActivity {
 
         btnLogout.setOnClickListener(v -> {
 
-           /* // remove token from shared preference on logout
-            SharedPreferences.Editor  editor= sharedPref.edit();
-            editor.remove("token");
-            editor.commit();
-*/
-            //Toast.makeText(this, "token deleted", Toast.LENGTH_SHORT).show();
+            // remove token from shared preference on logout
+
+            SharedPreferences preferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
+            preferences.edit().remove("token").commit();
+            Toast.makeText(this, "token deleted Successfully \n" + user_token, Toast.LENGTH_SHORT).show();
 
             //go to login page on logout
             Intent gotoLoginIntent= new Intent(DashBoardActivity.this, LoginActivity.class);

@@ -50,6 +50,13 @@ public class LoginActivity extends AppCompatActivity {
         //set title here
         setTitle(getString(R.string.user_login));
 
+       /* if(sharedPref.contains("token")){
+            Intent gotoDashboardIntent= new Intent(LoginActivity.this, DashBoardActivity.class);
+            startActivity(gotoDashboardIntent);
+            finish();
+        }
+*/
+
         btnRegister.setOnClickListener(v -> {
         Intent gotoRegisterIntent= new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(gotoRegisterIntent);
@@ -71,11 +78,18 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(response.isSuccessful()){
 
+                        /***
+                         * Token stored in shared pref
+                         */
+                        String user_token = response.body().getToken();
+                        sharedPref = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                        sharedPref.edit().putString("token", user_token).commit();
+
                         Toast.makeText(LoginActivity.this,
                                 "User logged in \n success: " + response.body().getIsSuccess()
-                                        + "\n id: " + response.body().getUser().getId(),
+                                        + "\n id: " + response.body().getUser().getId()
+                                        + "\n Token stored successfully in Shared Pref"+ user_token,
                                 Toast.LENGTH_SHORT).show();
-                        String user_token = response.body().getToken();
 
                         //go to dashboard
                         Intent gotoDashboardIntent= new Intent(LoginActivity.this, DashBoardActivity.class);
@@ -97,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Error: "+ t, Toast.LENGTH_SHORT).show();
                 }
             });
-
         });
     }
 }
