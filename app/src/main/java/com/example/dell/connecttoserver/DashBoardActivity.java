@@ -17,6 +17,7 @@ import com.example.dell.connecttoserver.model.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,21 +46,24 @@ public class DashBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
 
-        //setVisibility gone of textview by default
+        ButterKnife.bind(this);
+
+
+     /*   //setVisibility gone of textview by default
         tvName.setVisibility(View.GONE);
         tvUsername.setVisibility(View.GONE);
         tvEmail.setVisibility(View.GONE);
 
         //set string
         setTitle(getString(R.string.user_dashboard));
-        ButterKnife.bind(this);
 
-        //shared preference
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    /*    //shared preference
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
 
         btnShowHideProfile.setOnClickListener(v -> {
-            String tokenFromSharedPreferences = sharedPref.getString("token", "token not found");
+            String tokenFromSharedPreferences = sharedPref.getString("token",
+                    "token not found");
             APIService apiService = Client.getClient().create(APIService.class);
             Call<User> call = apiService.getProfile(tokenFromSharedPreferences);
 
@@ -89,18 +93,22 @@ public class DashBoardActivity extends AppCompatActivity {
             });
 
         });
+        */
 
         btnLogout.setOnClickListener(v -> {
-            // remove token from shared preference on logout
+
+           /* // remove token from shared preference on logout
             SharedPreferences.Editor  editor= sharedPref.edit();
             editor.remove("token");
             editor.commit();
+*/
+            //Toast.makeText(this, "token deleted", Toast.LENGTH_SHORT).show();
 
-            Toast.makeText(this, "token deleted", Toast.LENGTH_SHORT).show();
-
-            //got to login page on logout
+            //go to login page on logout
             Intent gotoLoginIntent= new Intent(DashBoardActivity.this, LoginActivity.class);
             startActivity(gotoLoginIntent);
+            finish();
+
         });
     }
 }

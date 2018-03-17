@@ -1,5 +1,6 @@
 package com.example.dell.connecttoserver;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -37,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences sharedPref;
 
+    Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +56,11 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         btnLogin.setOnClickListener(v -> {
+
             Login login = new Login(
                     loginUsername.getText().toString(),
                     loginPassword.getText().toString()
-                    );
+            );
 
             APIService apiService = Client.getClient().create(APIService.class);
             Call<LoginResponse> call = apiService.authenticateUser(login);
@@ -64,18 +68,22 @@ public class LoginActivity extends AppCompatActivity {
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    if(response.isSuccessful()){
-                        Toast.makeText(LoginActivity.this, response.body().getToken(), Toast.LENGTH_SHORT).show();
 
-                        //store token in shared preferences
-                        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        SharedPreferences.Editor  editor= sharedPref.edit();
-                        editor.putString("token", response.body().getToken());
-                        editor.commit();
+                    if(response.isSuccessful()){
+
+                        Toast.makeText(LoginActivity.this,
+                                "User logged in \n success: " + response.body().getIsSuccess()
+                                        + "\n id: " + response.body().getUser().getId(),
+                                Toast.LENGTH_SHORT).show();
 
                         //go to dashboard
                         Intent gotoDashboardIntent= new Intent(LoginActivity.this, DashBoardActivity.class);
                         startActivity(gotoDashboardIntent);
+                        finish();
+
+                        // clear fields
+                        loginUsername.setText("");
+                        loginPassword.setText("");
 
                     }else{
                         Toast.makeText(LoginActivity.this, "Login Credentials is Wrong...", Toast.LENGTH_SHORT).show();
@@ -88,8 +96,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-            Intent gotoDashboardIntent= new Intent(LoginActivity.this, DashBoardActivity.class);
-            startActivity(gotoDashboardIntent);
         });
     }
 }

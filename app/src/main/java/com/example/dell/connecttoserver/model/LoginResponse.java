@@ -1,22 +1,29 @@
 package com.example.dell.connecttoserver.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by dell on 14/3/18.
  */
 
 public class LoginResponse {
 
-    private String id;
+    @SerializedName("success")
+    private String isSuccess;
+
+    @SerializedName("token")
     private String token;
 
+    @SerializedName("user")
     private User user;
 
-    public String getId() {
-        return id;
+
+    public String getIsSuccess() {
+        return isSuccess;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIsSuccess(String isSuccess) {
+        this.isSuccess = isSuccess;
     }
 
     public String getToken() {

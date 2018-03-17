@@ -112,6 +112,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:inputType="textPassword"
             android:hint="@string/hint_enter_password"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 

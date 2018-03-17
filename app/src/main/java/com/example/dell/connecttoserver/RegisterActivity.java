@@ -60,8 +60,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             sendRequest(user);
 
-            Intent gotoLoginIntent= new Intent(RegisterActivity.this, LoginActivity.class);
-            startActivity(gotoLoginIntent);
 
         });
 
@@ -78,8 +76,21 @@ public class RegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback<UserApiResponse>() {
             @Override
             public void onResponse(Call<UserApiResponse> call, Response<UserApiResponse> response) {
-                Toast.makeText(RegisterActivity.this, "User Registered\n success: "
-                        + response.body().isSuccess() , Toast.LENGTH_SHORT).show();
+                if(response.isSuccessful()) {
+                    Toast.makeText(RegisterActivity.this, "User Registered\n success: "
+                            + response.body().isSuccess(), Toast.LENGTH_SHORT).show();
+
+                    // clear fields
+
+                    registerName.setText("");
+                    registerUsername.setText("");
+                    registeremail.setText("");
+                    registerPassword.setText("");
+
+                    Intent gotoLoginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    startActivity(gotoLoginIntent);
+
+                }
 
             }
 
