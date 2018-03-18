@@ -50,17 +50,13 @@ public class RegisterActivity extends AppCompatActivity {
         setTitle("User Register");
 
         btnRegister.setOnClickListener(v -> {
-
             User user = new User(
                     registerName.getText().toString(),
                     registerUsername.getText().toString(),
                     registeremail.getText().toString(),
                     registerPassword.getText().toString()
             );
-
             sendRequest(user);
-
-
         });
 
         btnLogin.setOnClickListener(v -> {
@@ -70,9 +66,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void sendRequest(User user) {
-        APIService apiService = Client.getClient().create(APIService.class);
 
+        APIService apiService = Client.getClient().create(APIService.class);
         Call<UserApiResponse> call = apiService.registerUser(user);
+
         call.enqueue(new Callback<UserApiResponse>() {
             @Override
             public void onResponse(Call<UserApiResponse> call, Response<UserApiResponse> response) {
@@ -81,7 +78,6 @@ public class RegisterActivity extends AppCompatActivity {
                             + response.body().isSuccess(), Toast.LENGTH_SHORT).show();
 
                     // clear fields
-
                     registerName.setText("");
                     registerUsername.setText("");
                     registeremail.setText("");
@@ -89,16 +85,13 @@ public class RegisterActivity extends AppCompatActivity {
 
                     Intent gotoLoginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(gotoLoginIntent);
-
                 }
-
             }
 
             @Override
             public void onFailure(Call<UserApiResponse> call, Throwable t) {
                 Toast.makeText(RegisterActivity.this, "Registration Failled... "
                         + t, Toast.LENGTH_SHORT).show();
-
             }
         });
     }

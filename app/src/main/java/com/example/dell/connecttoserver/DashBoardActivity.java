@@ -96,23 +96,23 @@ public class DashBoardActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
             });
-
         });
 
-
         btnLogout.setOnClickListener(v -> {
-
-            // remove token from shared preference on logout
-
+            /***
+             * remove user_token from shared preference on logout and make a toast appear
+             * to show delete msg
+             */
             SharedPreferences preferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
             preferences.edit().remove("token").commit();
             Toast.makeText(this, "token deleted Successfully \n" + user_token, Toast.LENGTH_SHORT).show();
 
-            //go to login page on logout
+            /***
+             * go to login page on logout
+             */
             Intent gotoLoginIntent= new Intent(DashBoardActivity.this, LoginActivity.class);
             startActivity(gotoLoginIntent);
             finish();
-
         });
     }
 }

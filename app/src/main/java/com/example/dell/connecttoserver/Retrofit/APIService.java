@@ -27,6 +27,4 @@ public interface APIService {
 
     @GET("users/profile")
     Call<LoginResponse> getProfile(@Header("Authorization") String authToken);
-
-
 }

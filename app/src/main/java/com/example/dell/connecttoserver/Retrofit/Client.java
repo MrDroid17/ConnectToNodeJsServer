@@ -8,8 +8,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class Client {
-                                        // for real device 192.168.0.108
+
     //public static final String BASE_URL = "http://192.168.0.108:3000/";
+    /***
+     * localhost to test on emulator is 10.0.2.2
+     */
     public static final String BASE_URL = "http://10.0.2.2:3000/";
 
     public static Retrofit retrofit= null;

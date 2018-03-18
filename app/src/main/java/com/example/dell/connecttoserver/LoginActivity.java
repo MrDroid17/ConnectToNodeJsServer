@@ -38,9 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences sharedPref;
 
-    Context mContext;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,18 +47,34 @@ public class LoginActivity extends AppCompatActivity {
         //set title here
         setTitle(getString(R.string.user_login));
 
-       /* if(sharedPref.contains("token")){
+        // define shared pref
+        sharedPref = getSharedPreferences("myPrefs", MODE_PRIVATE);
+
+        /***
+         *  check if token is already  present.
+         *  if token exist store it in a string
+         *  then pass along with intent to the dashboard activity
+         */
+        if(sharedPref.contains("token")){
+            String user_token = sharedPref.getString("token", "token not found");
+
             Intent gotoDashboardIntent= new Intent(LoginActivity.this, DashBoardActivity.class);
+            gotoDashboardIntent.putExtra("token_id", user_token );
             startActivity(gotoDashboardIntent);
             finish();
         }
-*/
 
+        /***
+         *  click event for register button
+         */
         btnRegister.setOnClickListener(v -> {
         Intent gotoRegisterIntent= new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(gotoRegisterIntent);
         });
 
+        /***
+         * click event for login button
+         */
         btnLogin.setOnClickListener(v -> {
 
             Login login = new Login(
@@ -75,14 +88,15 @@ public class LoginActivity extends AppCompatActivity {
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-
                     if(response.isSuccessful()){
 
                         /***
-                         * Token stored in shared pref
+                         * get token in a String called user_token
+                         * store the token in shared pref
+                         * also pass the token in
+                         * add Toast for success event
                          */
                         String user_token = response.body().getToken();
-                        sharedPref = getSharedPreferences("myPrefs", MODE_PRIVATE);
                         sharedPref.edit().putString("token", user_token).commit();
 
                         Toast.makeText(LoginActivity.this,
@@ -100,7 +114,6 @@ public class LoginActivity extends AppCompatActivity {
                         // clear fields
                         loginUsername.setText("");
                         loginPassword.setText("");
-
                     }else{
                         Toast.makeText(LoginActivity.this, "Login Credentials is Wrong...", Toast.LENGTH_SHORT).show();
                     }
